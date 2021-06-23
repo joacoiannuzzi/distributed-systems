@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geo-service-config
+  namespace: default
+data:
+  port: "50004"

@@ -22,8 +22,11 @@ libraryDependencies ++= Seq(
 libraryDependencies += "com.lihaoyi" %% "upickle" % "0.9.5"
 libraryDependencies += "com.github.tototoshi" %% "scala-csv" % "1.3.7"
 
-enablePlugins(JavaAppPackaging)
-enablePlugins(DockerPlugin)
 
-mainClass in Compile := Some("service.Server")
-packageName in Docker := "geo-service-server2"
+mainClass in assembly := Some("service.Server")
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", "services", xs @ _*) => MergeStrategy.filterDistinctLines
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}
