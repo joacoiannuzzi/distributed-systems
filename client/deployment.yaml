@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  labels:
+    app: client
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: client
+        tier: frontend
+    spec:
+      containers:
+        - name: client
+          image: "client:1.0.0"
+          ports:
+            - containerPort: 3000

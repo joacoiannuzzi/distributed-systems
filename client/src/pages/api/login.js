@@ -1,4 +1,4 @@
-import { authClient } from "../../utils/authService";
+import { authClient } from "../../util/authService";
 
 export default async function handler(req, res) {
   const { mail, password } = JSON.parse(req.body);

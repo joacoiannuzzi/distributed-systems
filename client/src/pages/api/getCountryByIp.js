@@ -1,4 +1,4 @@
-import { geoClient } from "../../utils/geoService";
+import { geoClient } from "../../util/geoService";
 
 export default async function handler(req, res) {
   const { ip } = JSON.parse(req.body);

@@ -1,8 +1,14 @@
+import path from "path";
 import { promisifyAll } from "./promisifyAll";
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
-const PROTO_PATH = __dirname + "/../../../../proto/geoService.proto";
+const PROTO_PATH = path.join(
+  process.cwd(),
+  "src",
+  "proto",
+  "authService.proto"
+);
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -11,15 +17,13 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   defaults: true,
 });
 
-const geoProto = grpc.loadPackageDefinition(packageDefinition);
-
-// console.log(geoProto.service);
+const authProto = grpc.loadPackageDefinition(packageDefinition);
 
 const host = process.env.AUTH_SERVICE_HOST ?? "localhost";
-const port = process.env.AUTH_SERVICE_PORT ?? 50004;
+const port = process.env.AUTH_SERVICE_PORT ?? 50051;
 
-export const geoClient = promisifyAll(
-  new geoProto.service.GeoService(
+export const authClient = promisifyAll(
+  new authProto.service.AuthService(
     `${host}:${port}`,
     grpc.credentials.createInsecure()
   )
