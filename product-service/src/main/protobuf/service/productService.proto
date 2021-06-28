@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package service ;
+
+service ProductService {
+  rpc GetProducts (GetProductsRequest) returns (GetProductReply);
+  rpc GetAllProducts (GetAllProductsRequest) returns (GetAllProductsReply);
+}
+
+message GetProductsRequest {
+  string productId = 1;
+}
+
+message GetAllProductsRequest {
+}
+
+message GetAllProductsReply{
+  repeated string productId = 1;
+}
+
+message GetProductReply {
+  string id = 1;
+  string name = 2;
+  string price = 3;
+}
