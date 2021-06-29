@@ -1,7 +1,7 @@
 package service
 
 import io.grpc.ServerBuilder
-import service.geoService.GeoServiceGrpc
+import service.productService.ProductServiceGrpc
 
 import scala.concurrent.ExecutionContext
 
@@ -10,7 +10,7 @@ object Server extends App {
   private val builder = ServerBuilder
     .forPort(port)
   builder.addService(
-    GeoServiceGrpc.bindService(GeoService(), ExecutionContext.global)
+    ProductServiceGrpc.bindService(ProductCatalogService(), ExecutionContext.global)
   )
   private val server = builder.build()
 
