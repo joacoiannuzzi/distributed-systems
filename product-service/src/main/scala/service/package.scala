@@ -6,12 +6,11 @@ package object ProductCatalog {
   def readProducts(): List[ProductEntry] = {
     CSVReader
       .open(
-        "./products_csv.csv"
+        "./resources/products_csv.csv"
       )
       .allWithHeaders()
       .map(_.toList)
-      .map {
-        case List(id, name, price, _) =>
+      .map { case List(id, name, price) =>
           ProductEntry(id._2, name._2, price._2)
       }
   }
