@@ -6,7 +6,7 @@ import service.productService.ProductServiceGrpc
 import scala.concurrent.ExecutionContext
 
 object Server extends App {
-  private val port = sys.env.getOrElse("port", "50004").toInt
+  private val port = sys.env.getOrElse("port", "50005").toInt
   private val builder = ServerBuilder
     .forPort(port)
   builder.addService(
