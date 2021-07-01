@@ -14,7 +14,7 @@ message GetProductsRequest {
 message GetAllProductsRequest {
 }
 
-message GetAllProductsReply{
+message GetAllProductsReply {
   repeated string productId = 1;
 }
 

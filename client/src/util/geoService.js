@@ -14,8 +14,8 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const geoProto = grpc.loadPackageDefinition(packageDefinition);
 
-const host = process.env.AUTH_SERVICE_HOST ?? "localhost";
-const port = process.env.AUTH_SERVICE_PORT ?? 50004;
+const host = process.env.GEO_SERVICE_HOST ?? "localhost";
+const port = process.env.GEO_SERVICE_PORT ?? 50004;
 
 export const geoClient = promisifyAll(
   new geoProto.service.GeoService(
