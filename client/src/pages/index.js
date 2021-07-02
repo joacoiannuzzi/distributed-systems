@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   return (
     <div>
       <Auth />
       <GetCountryForm />
+      <Products />
     </div>
   );
 }
@@ -77,6 +78,51 @@ function GetCountryForm() {
         <button type="submit">Submit</button>
       </form>
       {response && <div>{JSON.stringify(response, null, 4)}</div>}
+    </div>
+  );
+}
+
+function Products() {
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    const f = async () => {
+      const res = await fetch("/api/getAllProducts");
+      const productsIdRes = await res.json();
+
+      const productsRes = await Promise.all(
+        productsIdRes.productId.map((productId) =>
+          fetch("/api/getProduct", {
+            method: "post",
+            body: JSON.stringify({ productId }),
+          }).then((res) => res.json())
+        )
+      );
+
+      setProducts(productsRes);
+    };
+    f();
+  }, []);
+  return (
+    <div>
+      <h4>Products</h4>
+      {products.map((product) => (
+        <div
+          key={product.id}
+          style={{
+            padding: 10,
+          }}
+        >
+          <div>
+            <span>Name: </span>
+            <span>{product.name}</span>
+          </div>
+          <div>
+            <span>Price: </span>
+            <span>{product.price}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
